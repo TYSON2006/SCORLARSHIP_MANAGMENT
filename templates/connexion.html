@@ -1,0 +1,56 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'compte/style.css'%}">
+    <title>connexion-GESTISCOL</title>
+</head>
+<body>
+
+    <header>
+      <img src="{% static 'compte/LOGO.png' %}" alt="Logo GestiScol">
+    </header>
+
+    <div class="container">
+        <div class="form">
+
+             
+             
+            <form method="POST" action="{% url 'connexion' %} ">
+             {% csrf_token %}  
+             <p class="subtitle">Connectez-vous pour accéder à votre espace. </p> 
+             <h1>CONNEXION</h1>
+             {% if messages %}
+             {% for message in messages %}
+             <div class="element"> {{message.tags}},{{message}}</div>
+             {% endfor %}
+             {% endif %}
+             <label for="username">Nom d'utilisateur</label>
+             <input
+             type="text"
+             name="username"
+             id="username"
+             required
+             >
+             
+             <label for="password">Mot de passe</label>
+             <input
+             type="password"
+             name="password"
+             id="password"
+             required
+             >
+             <button type="submit">
+                Se connecter
+            </button>
+          
+             
+            </form>
+          
+        </div>
+
+    </div>
+</body>
+</html>
