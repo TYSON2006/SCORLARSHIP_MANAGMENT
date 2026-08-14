@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 
+
 # Create your models here.
 
 
@@ -82,15 +83,17 @@ class Absence(models.Model):
    ]
 
 
-   choix_de_justification = models.CharField(max_length=25,choices=choix_de_justification,default='permission')
-
-   user = models.CharField(Etudiant,on_delete=models.CASCADE)
+  
+   etudiant = models.ForeignKey(Etudiant,on_delete=models.CASCADE)
    matiere = models.ForeignKey(Matiere,on_delete=models.CASCADE)
    date  = models.DateField()
-   heure = models.DateTimeField()
+   heure = models.TimeField()
+   justification = models.CharField(max_length=25,choices=choix_de_justification,default='permission')
+
+
 
 
 
    def __str__(self):
-      return self.user.username
+      return  f"{self.etudiant}-{self.matiere}-{self.date}"
    

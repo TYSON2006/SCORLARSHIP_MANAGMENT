@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import Etudiant
 
 # Create your views here.
 
@@ -48,3 +49,8 @@ def acceuil_view(request):
 
 
 
+
+@login_required
+def  liste_etudiants(request):
+    etudiants =  Etudiant.objects.all()
+    return render(request,'compte/liste_etudiants.html',{'etudiants':etudiants})

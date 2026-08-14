@@ -1,0 +1,26 @@
+ {% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>liste-etudiant</title>
+</head>
+<body>
+
+    
+        {% if etudiants %}
+        <ul>
+            {% for etudiant in etudiants%}
+            <li>{{etudiant.user.username}}-{{etudiant.classe.nom}}</li>
+            {% endfor %}
+
+        </ul>
+        {% else %}
+        <p> Aucun étudiant trouvé</p>
+        {% endif %}
+        
+  
+    
+</body>
+</html>
