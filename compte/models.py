@@ -52,6 +52,8 @@ class Etudiant(models.Model):
 
     user = models.OneToOneField(Users,on_delete=models.CASCADE)
     classe = models.ForeignKey(Classe,on_delete=models.CASCADE)
+    age = models.IntegerField()
+    matricule = models.CharField(max_length=25)
 
     def __str__(self):
       return self.user.username

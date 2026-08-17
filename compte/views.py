@@ -19,12 +19,12 @@ def connect_view(request):
         else:
             messages.error(request, "Nom d'utilisateur ou password incorrect.")
 
-    return render(request, "connexion.html")
+    return render(request, "compte/connexion.html")
 
 
 @login_required
 def acceuil(request):
-    return render(request, "acceuil.html")
+    return render(request, "compte/acceuil.html")
 
 
 
@@ -42,7 +42,7 @@ def acceuil_view(request):
     if request.user.role == 'prof':
         return render(request,'compte/dashboard_prof.html')
     elif request.user.role == 'etudiant':
-        return render(request,'compte/dashborad_etudiant.html')
+        return render(request,'compte/dashboard_etudiant.html')
     else:
         return render(request,'compte/acceuil.html')
 
@@ -54,3 +54,33 @@ def acceuil_view(request):
 def  liste_etudiants(request):
     etudiants =  Etudiant.objects.all()
     return render(request,'compte/liste_etudiants.html',{'etudiants':etudiants})
+
+
+
+
+
+@login_required
+def ajouter_etudiant(request):
+    if request.method == 'POST':
+        username = request.POST["username"]
+        password = request.POST["password"]
+        classe_id = request.POST["classe_id"]
+        age = request.POST["age"]
+        matricule = request.POST["matricule"] 
+        if Users.objects.filter(username=username).exists():
+
+            messages.error(request,"Ce nom d'tulilisateur est déjà utilisé")
+            return render(request,"compte/ajouter_etudiant.html")
+        nouvelle_utilisateur = Users.objects.create_user(username=username,password=password,role='etudiant')
+        classe_obj= Classe.objects.get(id = classe_id)
+        Etudiant.objects.create (user= nouvelle_utilisateur, classe_=classe_obj,age=age,matricule=matricule)
+        return redirect('liste_etudiants')
+        
+        
+        
+                 
+
+        
+   
+    
+  
