@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Etudiant
+from .models import Etudiant 
+from .models import Professeur
 
 # Create your views here.
 
@@ -39,13 +40,15 @@ def deconnexion_view(request):
 
 def acceuil_view(request):
 
-    if request.user.role == 'prof':
-        return render(request,'compte/dashboard_prof.html')
+    if request.user.role == 'admin':
+        return render(request,'compte/acceuil.html')
+    
     elif request.user.role == 'etudiant':
         return render(request,'compte/dashboard_etudiant.html')
-    else:
-        return render(request,'compte/acceuil.html')
 
+    elif request.user.role == 'prof':
+        return render(request,'compte/dashboard_prof.html')
+   
 
 
 
@@ -78,7 +81,12 @@ def ajouter_etudiant(request):
         
         
         
-                 
+
+
+@login_required
+def liste_professeurs(request):
+    professeurs = Professeur.objects.all()
+    return render(request,'compte/liste_professeurs.html',{'professeurs':professeurs})
 
         
    

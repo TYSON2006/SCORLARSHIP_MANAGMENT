@@ -17,7 +17,7 @@ class Users(AbstractUser):
    
    role = models.CharField(max_length=25,choices= Roles , default='prof')
 
-   REQUIRED_FIELDS= ['role','first_name','last_name']
+   REQUIRED_FIELDS= ['role','first_name','last_name',]
 
 
    def __str__(self):

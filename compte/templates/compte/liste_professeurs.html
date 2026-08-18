@@ -1,0 +1,30 @@
+ {% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>liste-professeur</title>
+</head>
+<body>
+
+    
+        {% if professeurs %}
+        <ul>
+            {% for professeur in professeurs%}
+            <li>{{professeur.user.username}}-{{professeur.matiere.nom}}</li>
+            <ul>
+                {% for classe in professeur.classes.all %}
+                <li> {{ classe.nom}}</li>
+            {% endfor %}
+            </ul>
+
+        </ul>
+        {% else %}
+        <p> Aucun  professeur trouvé</p>
+        {% endif %}
+        
+  
+    
+</body>
+</html>
