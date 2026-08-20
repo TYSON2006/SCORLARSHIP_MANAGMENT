@@ -9,20 +9,20 @@
 <body>
 
     
+        
         {% if professeurs %}
         <ul>
-            {% for professeur in professeurs%}
-            <li>{{professeur.user.username}}-{{professeur.matiere.nom}}</li>
-            <ul>
-                {% for classe in professeur.classes.all %}
-                <li> {{ classe.nom}}</li>
+            {% for prof in professeurs%}
+            <li>{{prof.user.username}}-{{prof.matiere.nom}}</li>
             {% endfor %}
-            </ul>
-
+            
         </ul>
         {% else %}
-        <p> Aucun  professeur trouvé</p>
+        <p> Aucun étudiant trouvé</p>
         {% endif %}
+        
+  
+           
         
   
     

@@ -83,12 +83,32 @@ def ajouter_etudiant(request):
         
 
 
-@login_required
 def liste_professeurs(request):
     professeurs = Professeur.objects.all()
-    return render(request,'compte/liste_professeurs.html',{'professeurs':professeurs})
+    context={
+        "professeurs":professeurs
+    }
+    
+    return render(request,'compte/liste_professeurs.html',context)
 
         
    
-    
-  
+
+
+ 
+def ajouter_professeurs(request):
+    if request.method == 'POST':
+        username = request.POST ["username"]
+        password = request.POST ["password"]
+        matiere_id = request.POST["matiere_id"]
+        classes_ids = request.POST.getlist("classes_ids")
+        if Users.objects.filter(username=username).exists():
+            messages.error(request,"ce nom est déjà utilisé")
+            return render(request,"compte/ajouter_professeurs.html")
+        nouvelle_utilisateur = Users.objects.create_user(username=username,password=password,role='prof')
+        nouveau_prof = Professeur.objects.create(user=nouvelle_utilisateur,matiere=matiere_obj)*
+        nouveau_prof.classes.set("classes_ids")
+        return render("liste_professeurs")
+
+    return render(request,"compte/ajouter_professeurs")
+           
