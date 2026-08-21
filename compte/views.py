@@ -106,7 +106,7 @@ def ajouter_professeurs(request):
             messages.error(request,"ce nom est déjà utilisé")
             return render(request,"compte/ajouter_professeurs.html")
         nouvelle_utilisateur = Users.objects.create_user(username=username,password=password,role='prof')
-        nouveau_prof = Professeur.objects.create(user=nouvelle_utilisateur,matiere=matiere_obj)*
+        nouveau_prof = Professeur.objects.create(user=nouvelle_utilisateur,matiere=matiere_obj)
         nouveau_prof.classes.set("classes_ids")
         return render("liste_professeurs")
 
