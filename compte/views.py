@@ -76,8 +76,9 @@ def ajouter_etudiant(request):
             return render(request,"compte/ajouter_etudiant.html")
         nouvelle_utilisateur = Users.objects.create_user(username=username,password=password,role='etudiant')
         classe_obj= Classe.objects.get(id = classe_id)
-        Etudiant.objects.create (user= nouvelle_utilisateur, classe_=classe_obj,age=age,matricule=matricule)
+        Etudiant.objects.create (user= nouvelle_utilisateur, classe=classe_obj,age=age,matricule=matricule)
         return redirect('liste_etudiants')
+    return render(request,'compte/ajouter_etudiant.html')
         
         
         
@@ -110,5 +111,31 @@ def ajouter_professeurs(request):
         nouveau_prof.classes.set("classes_ids")
         return render("liste_professeurs")
 
-    return render(request,"compte/ajouter_professeurs")
-           
+    return render(request,"compte/ajouter_professeurs.html")
+
+
+@login_required
+def supprimer_etudiant(request,etudiant_id):
+    etudiant = Etudiant.objects.get(id=etudiant_id)
+    etudiant.delete()
+    return redirect('liste_etudiants')
+
+
+
+@login_required
+def modifier_etudiant(request, etudiant_id):
+    etudiant = Etudiant.objects.get(id=etudiant_id)
+
+    if request.method == 'POST':
+        etudiant.age = request.POST["age"]
+        etudiant.matricule = request.POST["matricule"]
+        classe_obj = Classe.objects.get(id=request.POST["classe"])
+        etudiant.classe = classe_obj
+        etudiant.save()
+
+        etudiant.user.username = request.POST["username"]
+        etudiant.user.save()
+
+        return redirect('liste_etudiants')
+
+    return render(request, 'compte/modifier_etudiant.html', {'etudiant': etudiant})

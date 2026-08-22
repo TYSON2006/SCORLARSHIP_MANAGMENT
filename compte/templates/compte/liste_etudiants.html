@@ -13,6 +13,7 @@
         <ul>
             {% for etudiant in etudiants%}
             <li>{{etudiant.user.username}}-{{etudiant.classe.nom}}</li>
+            <a href="{% url 'supprimer_etudiant'etudiant.id %}">Supprimer</a>
             {% endfor %}
 
         </ul>
