@@ -1,20 +1,120 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'compte/style.css'%}">
-    <title>GESTISCOL-acceuil</title>
-</head>
-<body>
 
-    <h1> Bienvenue {{ request.user.first_name }} !</h1>
-    <p>Vous êtes connecté en tant que  {{ request.user.get_role_display }}</p>
-    <a href="{%url 'liste_etudiants'%}">Liste des étudiants</a>
-    <a href="{% url 'ajouter_etudiant' %}">ajouter des étudiant</a>
-    <a href="{% url 'liste_professeurs'%}">Liste des professeurs</a>
-    <a href="{% url 'ajouter_professeurs'%}">ajouter professeurs</a> 
-    <a href="{% url 'deconnexion'%}">Se deconnecter</a>
+    <link rel="stylesheet" href="{% static 'compte/style.css' %}">
+
+    <title>GESTISCOL - Accueil</title>
+</head>
+
+<body class="admin-page">
+
+    <header class="admin-header">
+
+        <div class="admin-brand">
+            <img src="{% static 'compte/LOGO.png' %}" alt="Logo GESTISCOL">
+
+            <div>
+                <h1>GESTISCOL</h1>
+                <span>Gestion scolaire</span>
+            </div>
+        </div>
+
+        <a href="{% url 'deconnexion' %}" class="logout-button">
+            Se déconnecter
+        </a>
+
+    </header>
+
+
+    <main class="admin-main">
+
+        <section class="welcome-section">
+
+            <p class="welcome-label">TABLEAU DE BORD</p>
+
+            <h2>
+                Bienvenue {{ request.user.first_name }} !
+            </h2>
+
+            <p>
+                Vous êtes connecté en tant que
+                <strong>{{ request.user.get_role_display }}</strong>.
+            </p>
+
+        </section>
+
+
+        <section class="admin-actions">
+
+            <a href="{% url 'liste_etudiants' %}" class="dashboard-card">
+
+                <div class="card-icon">
+                    👨‍🎓
+                </div>
+
+                <div>
+                    <h3>Étudiants</h3>
+                    <p>Consulter la liste des étudiants</p>
+                </div>
+
+            </a>
+
+
+            <a href="{% url 'ajouter_etudiant' %}" class="dashboard-card">
+
+                <div class="card-icon">
+                    ➕
+                </div>
+
+                <div>
+                    <h3>Ajouter un étudiant</h3>
+                    <p>Enregistrer un nouvel étudiant</p>
+                </div>
+
+            </a>
+
+
+            <a href="{% url 'liste_professeurs' %}" class="dashboard-card">
+
+                <div class="card-icon">
+                    👨‍🏫
+                </div>
+
+                <div>
+                    <h3>Professeurs</h3>
+                    <p>Consulter la liste des professeurs</p>
+                </div>
+
+            </a>
+
+
+            <a href="{% url 'ajouter_professeurs' %}" class="dashboard-card">
+
+                <div class="card-icon">
+                    ➕
+                </div>
+
+                <div>
+                    <h3>Ajouter un professeur</h3>
+                    <p>Enregistrer un nouveau professeur</p>
+                </div>
+
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <footer class="admin-footer">
+        GESTISCOL — Système de gestion scolaire
+    </footer>
+
 </body>
+
 </html>

@@ -1,0 +1,72 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>modifier_etudiant</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <form   method="POST"  action="{% url 'ajouter_etudiant'%}">
+                  {% csrf_token %}  
+             <p class="subtitle">Remplissez les informations de létudiant. </p> 
+             <h1>MODIFIER UN ETUDIANT</h1>
+             {% if messages %}
+             {% for message in messages %}
+             <div class="element"> {{message.tags}},{{message}}</div>
+             {% endfor %}
+             {% endif %}
+             <label for="username">Username</label>
+             <input
+             type="text"
+             name="username"
+             id="username"
+             required
+             >
+             
+             <label for="classe_id">classe_id</label>
+             <input
+             type="text"
+             name="classe_id"
+             id="classe_id"
+             required
+             >
+
+                <label for="age">Âge</label>
+             <input
+             type="text"
+             name="age"
+             id="age"
+             required
+             >
+
+                <label for="matricule">Matricule</label>
+             <input
+             type="text"
+             name="matricule"
+             id="matricule"
+             required
+             >
+
+             <label for="password">Mot de passe</label>
+             <input
+             type="password"
+             name="password"
+             id="password"
+             required
+             >
+
+             <button type="submit">
+                Inscrire 
+            </button>
+          
+
+            </form>
+
+        </div>
+    </div>
+    
+</body>
+</html>

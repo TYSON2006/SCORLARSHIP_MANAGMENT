@@ -1,81 +1,163 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ajouter_professeurs</title>
+     <link rel="stylesheet" href="{% static 'compte/style.css' %}">
+    <title>Ajouter un professeur</title>
 </head>
+
 <body>
+
     <div class="container">
-        <div class="form">
-            <form   method="POST"  action="{% url 'ajouter_professeurs'%}">
-                  {% csrf_token %}  
-             <p class="subtitle">Remplissez les informations du prof. </p> 
-             <h1>AJOUTER UN PROFESSEUR</h1>
-             {% if messages %}
-             {% for message in messages %}
-             <div class="element"> {{message.tags}},{{message}}</div>
-             {% endfor %}
-             {% endif %}
-             <label for="username">Nom d'utilisateur</label>
-             <input
-             type="text"
-             name="username"
-             id="username"
-             required
-             >
-             
-             <label for="matiere_id">matiere_id</label>
-             <input
-             type="text"
-             name="matiere_id"
-             id="matiere_id"
-             required
-             >
+        <div class="professor-card">
 
-            
-             <label for="password">Mot de passe</label>
-             <input
-             type="password"
-             name="password"
-             id="password"
-             required
-             >
+            <form method="POST" action="{% url 'ajouter_professeurs' %}">
+                {% csrf_token %}
 
-             <p>Classes :</p>
-             <label><input type="checkbox" name="classes_ids" value="1"> 6èmeA</label>
-            <label><input type="checkbox" name="classes_ids" value="2"> 6èmeB</label>
-            <label><input type="checkbox" name="classes_ids" value="3">5èmeA </label>
-              <label><input type="checkbox" name="classes_ids" value="1"> 5èmeB</label>
-            <label><input type="checkbox" name="classes_ids" value="2"> 4èmeA</label>
-            <label><input type="checkbox" name="classes_ids" value="3">4èmeA</label>
-              <label><input type="checkbox" name="classes_ids" value="1"> 4èmeB</label>
-            <label><input type="checkbox" name="classes_ids" value="2"> 3èmeA</label>
-            <label><input type="checkbox" name="classes_ids" value="3"> 3èmeB</label>
-             <label><input type="checkbox" name="classes_ids" value="1"> 2sndA</label>
-            <label><input type="checkbox" name="classes_ids" value="2">2cndC</label>
-            <label><input type="checkbox" name="classes_ids" value="3"> 1èreA</label>
-            <label><input type="checkbox" name="classes_ids" value="1">1èreC</label>
-            <label><input type="checkbox" name="classes_ids" value="2">1èreD</label>
-            <label><input type="checkbox" name="classes_ids" value="3"> TLEA</label>
-            <label><input type="checkbox" name="classes_ids" value="2">TLEC</label>
-             <label><input type="checkbox" name="classes_ids" value="2">TLED</label>
+                <h1>AJOUTER UN PROFESSEUR</h1>
 
+                <p class="subtitle">
+                    Remplissez les informations du professeur.
+                </p>
 
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="element {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
 
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        required
+                    >
+                </div>
 
+                <div class="form-group">
+                    <label for="matiere_id">Matière</label>
+                    <input
+                        type="text"
+                        name="matiere_id"
+                        id="matiere_id"
+                        required
+                    >
+                </div>
 
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        required
+                    >
+                </div>
 
+                <div class="classes-section">
 
+                    <h2>Classes enseignées</h2>
 
-             <button type="submit"> INSCRIRE </button>
-               
+                    <div class="classes-list">
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="1">
+                            6ème A
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="2">
+                            6ème B
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="3">
+                            5ème A
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="4">
+                            5ème B
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="5">
+                            4ème A
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="6">
+                            4ème B
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="7">
+                            3ème A
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="8">
+                            3ème B
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="9">
+                            2nde A
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="10">
+                            2nde C
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="11">
+                            1ère A
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="12">
+                            1ère C
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="13">
+                            1ère D
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="14">
+                            Tle A
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="15">
+                            Tle C
+                        </label>
+
+                        <label>
+                            <input type="checkbox" name="classes_ids" value="16">
+                            Tle D
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <button type="submit">
+                    INSCRIRE
+                </button>
 
             </form>
 
         </div>
     </div>
-    
+
 </body>
 </html>

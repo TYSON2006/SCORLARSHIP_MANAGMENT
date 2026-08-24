@@ -1,30 +1,60 @@
- {% load static %} 
+ {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>liste-professeur</title>
+
+    <link rel="stylesheet" href="{% static 'compte/style.css' %}">
+
+    <title>Liste des professeurs</title>
 </head>
+
 <body>
 
-    
-        
-        {% if professeurs %}
-        <ul>
-            {% for prof in professeurs%}
-            <li>{{prof.user.username}}-{{prof.matiere.nom}}</li>
-            {% endfor %}
-            
-        </ul>
-        {% else %}
-        <p> Aucun étudiant trouvé</p>
-        {% endif %}
-        
-  
-           
-        
-  
-    
+    <div class="container">
+
+        <div class="professors-card">
+
+            <h1>LISTE DES PROFESSEURS</h1>
+
+            <p class="subtitle">
+                Retrouvez les professeurs enregistrés dans GESTISCOL.
+            </p>
+
+            {% if professeurs %}
+
+                <div class="professors-list">
+
+                    {% for prof in professeurs %}
+
+                        <div class="professor-item">
+
+                            <div class="professor-info">
+                                <h2>{{ prof.user.username }}</h2>
+                                <p>
+                                    Matière :
+                                    <strong>{{ prof.matiere.nom }}</strong>
+                                </p>
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-message">
+                    Aucun professeur trouvé.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
 </body>
 </html>

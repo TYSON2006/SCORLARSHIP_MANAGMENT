@@ -4,68 +4,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="{% static 'compte/style.css' %}">
+
     <title>ajouter_etudiant</title>
 </head>
-<body>
-    <div class="container">
-        <div class="form">
+<body class="student-page">
+    <div class="student-container">
+        <section class="student-card">
             <form   method="POST"  action="{% url 'ajouter_etudiant'%}">
-                  {% csrf_token %}  
-             <p class="subtitle">Remplissez les informations de létudiant. </p> 
-             <h1>AJOUTER UN ETUDIANT</h1>
+                  {% csrf_token %} 
+                <h1>AJOUTER UN ETUDIANT</h1>
+             <p class="student-header">Remplissez les informations de létudiant. </p> 
              {% if messages %}
              {% for message in messages %}
              <div class="element"> {{message.tags}},{{message}}</div>
              {% endfor %}
              {% endif %}
-             <label for="username">Username</label>
-             <input
-             type="text"
-             name="username"
-             id="username"
-             required
-             >
-             
-             <label for="classe_id">classe_id</label>
-             <input
-             type="text"
-             name="classe_id"
-             id="classe_id"
-             required
-             >
+            <div class="student-field">
 
-                <label for="age">Âge</label>
-             <input
-             type="text"
-             name="age"
-             id="age"
-             required
-             >
+    {% comment %} <label for="username">
+        Nom d'utilisateur
+    </label>
 
-                <label for="matricule">Matricule</label>
-             <input
-             type="text"
-             name="matricule"
-             id="matricule"
-             required
-             >
+    <input
+        type="text"
+        name="username"
+        id="username"
+        required
+    >
 
-             <label for="password">Mot de passe</label>
-             <input
-             type="password"
-             name="password"
-             id="password"
-             required
-             >
+</div>
 
-             <button type="submit">
-                Inscrire 
-            </button>
-          
 
+<div class="student-field">
+
+    <label for="classe_id">
+        Classe
+    </label>
+
+    <input
+        type="text"
+        name="classe_id"
+        id="classe_id"
+        required
+    > {% endcomment %}
+
+</div>
+
+           <form class="student-form" method="POST" action="{% url 'ajouter_etudiant' %}">
+
+    {% csrf_token %}
+
+    <div class="student-field">
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" name="username" id="username" required>
+    </div>
+
+    <div class="student-field">
+        <label for="classe_id">Classe</label>
+        <input type="text" name="classe_id" id="classe_id" required>
+    </div>
+
+    <div class="student-field">
+        <label for="age">Âge</label>
+        <input type="text" name="age" id="age" required>
+    </div>
+
+    <div class="student-field">
+        <label for="matricule">Matricule</label>
+        <input type="text" name="matricule" id="matricule" required>
+    </div>
+
+    <div class="student-field">
+        <label for="password">Mot de passe</label>
+        <input type="password" name="password" id="password" required>
+    </div>
+
+    <button type="submit" class="student-submit">
+        Inscrire
+    </button>
+
+</form>
             </form>
 
-        </div>
+        </section>
     </div>
     
 </body>

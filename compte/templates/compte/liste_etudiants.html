@@ -1,27 +1,63 @@
- {% load static %} 
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>liste-etudiant</title>
+
+    <link rel="stylesheet" href="{% static 'compte/style.css' %}">
+
+    <title>Liste des étudiants</title>
 </head>
+
 <body>
 
-    
-        {% if etudiants %}
-        <ul>
-            {% for etudiant in etudiants%}
-            <li>{{etudiant.user.username}}-{{etudiant.classe.nom}}</li>
-            <a href="{% url 'supprimer_etudiant'etudiant.id %}">Supprimer</a>
-            {% endfor %}
+    <div class="container">
 
-        </ul>
-        {% else %}
-        <p> Aucun étudiant trouvé</p>
-        {% endif %}
-        
-  
-    
+        <div class="students-card">
+
+            <h1>LISTE DES ÉTUDIANTS</h1>
+
+            <p class="subtitle">
+                Retrouvez les étudiants enregistrés dans GESTISCOL.
+            </p>
+
+            {% if etudiants %}
+
+                <div class="students-list">
+
+                    {% for etudiant in etudiants %}
+
+                        <div class="student-item">
+
+                            <div class="student-info">
+
+                                <h2>{{ etudiant.user.username }}</h2>
+
+                                <p>
+                                    Classe :
+                                    <strong>{{ etudiant.classe.nom }}</strong>
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-student-message">
+                    Aucun étudiant trouvé.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
 </body>
 </html>
