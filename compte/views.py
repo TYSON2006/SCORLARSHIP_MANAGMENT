@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Etudiant 
 from .models import Professeur
+from.models import Classe
+from.models import Matiere
 
 # Create your views here.
 
@@ -129,7 +131,7 @@ def modifier_etudiant(request, etudiant_id):
     if request.method == 'POST':
         etudiant.age = request.POST["age"]
         etudiant.matricule = request.POST["matricule"]
-        classe_obj = Classe.objects.get(id=request.POST["classe"])
+        classe_obj =Classe.objects.get(id=request.POST["classe"])
         etudiant.classe = classe_obj
         etudiant.save()
 
@@ -139,3 +141,29 @@ def modifier_etudiant(request, etudiant_id):
         return redirect('liste_etudiants')
 
     return render(request, 'compte/modifier_etudiant.html', {'etudiant': etudiant})
+
+
+
+
+@login_required
+def supprimer_professeur(request,professeur_id):
+    professeur = Professeur.objects.get(id=professeur_id)
+    professeur.delete()
+    return redirect('liste_professeurs')
+
+
+@login_required
+def modifier_professeur(request,professeur_id):
+    professeur = Professeur.objects.get(id=professeur_id)
+    if request.method == 'POST':
+        matiere_obj = Matiere.objects.get(id=request.POST["matiere_id"])
+        professeur.matiere = matiere_obj
+        professeur.save()
+        classes_ids=request.POST.getlsit("classes_ids")
+        professeur.classes.set(classes_ids)
+        professeur.user.username = request.POST["username"]
+        professeur.user.save()
+        return redirect('liste_professeur')
+    return render(request,'compte/modifier_professeur.html',{'professeur':professeur})
+    
+   

@@ -36,6 +36,8 @@
                                     Matière :
                                     <strong>{{ prof.matiere.nom }}</strong>
                                 </p>
+                                <a href="{% url 'modifier_professeur' prof.id %}">Modifier<a/>
+                                 <a href="{% url 'supprimer_professeur' prof.id %}">Suprimer<a/>
                             </div>
 
                         </div>

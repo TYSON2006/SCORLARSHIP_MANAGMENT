@@ -27,6 +27,7 @@
                 <div class="students-list">
 
                     {% for etudiant in etudiants %}
+                     
 
                         <div class="student-item">
 
@@ -38,6 +39,8 @@
                                     Classe :
                                     <strong>{{ etudiant.classe.nom }}</strong>
                                 </p>
+                                <a href="{% url 'modifier_etudiant'etudiant.id %}">Modifier<a/>
+                                <a href="{% url 'supprimer_etudiant' etudiant.id %}">Suprimer<a/>
 
                             </div>
 

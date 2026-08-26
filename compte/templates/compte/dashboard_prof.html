@@ -1,15 +1,102 @@
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'compte/style.css'%}">
-    <title>dash_prof</title>
+
+    <link rel="stylesheet" href="{% static 'compte/style.css' %}">
+
+    <title>GESTISCOL - Espace professeur</title>
 </head>
-<body>
-    <h1>TABLEAU PROFESSEUR</h1>
-    <p>Bienvenue {{request.user.first_name}}
-    
+
+<body class="prof-dashboard">
+
+    <header class="prof-header">
+
+        <div class="prof-brand">
+
+            <img src="{% static 'compte/LOGO.png' %}" alt="Logo GESTISCOL">
+
+            <div>
+                <h1>GESTISCOL</h1>
+                <span>Espace professeur</span>
+            </div>
+
+        </div>
+
+        <a href="{% url 'deconnexion' %}" class="prof-logout">
+            Se déconnecter
+        </a>
+
+    </header>
+
+
+    <main class="prof-main">
+
+        <section class="prof-welcome">
+
+            <p class="prof-label">
+                ESPACE PROFESSEUR
+            </p>
+
+            <h2>
+                Bienvenue {{ request.user.first_name }} !
+            </h2>
+
+            <p>
+                Bienvenue dans votre espace professeur.
+            </p>
+
+        </section>
+
+
+        <section class="prof-actions">
+
+            <div class="prof-dashboard-card">
+
+                <div class="prof-card-icon">
+                    👨‍🏫
+                </div>
+
+                <div>
+                    <h3>Mon espace</h3>
+
+                    <p>
+                        Gérez vos activités au sein de GESTISCOL.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="prof-dashboard-card">
+
+                <div class="prof-card-icon">
+                    📚
+                </div>
+
+                <div>
+                    <h3>Mes classes</h3>
+
+                    <p>
+                        Consultez les classes qui vous sont attribuées.
+                    </p>
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <footer class="prof-footer">
+        GESTISCOL — Système de gestion scolaire
+    </footer>
+
 </body>
+
 </html>

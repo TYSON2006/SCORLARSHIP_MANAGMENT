@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>modifier_etudiant</title>
+    <title>modifier_PROFESSEUR</title>
 </head>
 <body>
     <div class="container">
         <div class="form">
-            <form   method="POST"  action="{% url 'modifier_etudiant' etudiant.id %}">
+            <form   method="POST"  action="{% url 'modifier_professeur' professeur.id %}">
                   {% csrf_token %}  
-             <p class="subtitle">Remplissez les informations de l'étudiant. </p> 
-             <h1>MODIFIER UN ETUDIANT</h1>
+             <p class="subtitle">Remplissez les informations du professeur. </p> 
+             <h1>MODIFIER UN PROFESSEUR</h1>
              {% if messages %}
              {% for message in messages %}
             
@@ -24,38 +24,28 @@
              type="text"
              name="username"
              id="username"
-             value="{{etudiant.user.username}}"
+             value="{{professeur.user.username}}"
              required
              >
              
-             <label for="classe_id">classe</label>
+             <label for="classe_id">nouvelle classe</label>
              <input
              type="text"
              name="classe"
              id="classe"
-             value="{{etudiant.classe.id}}"
+             value="{{professeur.classe.ids}}"
              required
              >
 
               
 
-                <label for="matricule">Matricule</label>
+                <label for="matricule">Matiere</label>
              <input
              type="text"
-             name="matricule"
-             value="{{etudiant.matricule}}"
+             name="Matiere"
+             value="{{etudiant.matiere}}"
              required
              >
-
-
-              <label for="age">entrez l'âge</label>
-             <input
-             type="text"
-             name="age"
-             value="{{etudiant.age}}"
-             required
-             >
-            
 
              <button type="submit">
              Modifier
