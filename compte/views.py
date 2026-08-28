@@ -1,13 +1,23 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required 
 from .models import Etudiant 
 from .models import Professeur
 from.models import Classe
 from.models import Matiere
+from django.http import HttpResponseNotFound
 
 # Create your views here.
+
+
+
+def admin_required(view_func):
+    def wrapper(request,*args,**kwargs):
+        if request.user.role !='amdin':
+            return HttpResponseNotFound()
+        return view_func(request,*args,**kwargs)
+    return wrapper
 
 
 def connect_view(request):
@@ -53,18 +63,16 @@ def acceuil_view(request):
    
 
 
-
-
 @login_required
+@admin_required
 def  liste_etudiants(request):
     etudiants =  Etudiant.objects.all()
     return render(request,'compte/liste_etudiants.html',{'etudiants':etudiants})
 
 
 
-
-
 @login_required
+@admin_required
 def ajouter_etudiant(request):
     if request.method == 'POST':
         username = request.POST["username"]
@@ -83,9 +91,8 @@ def ajouter_etudiant(request):
     return render(request,'compte/ajouter_etudiant.html')
         
         
-        
-
-
+@login_required     
+@admin_required
 def liste_professeurs(request):
     professeurs = Professeur.objects.all()
     context={
@@ -98,7 +105,8 @@ def liste_professeurs(request):
    
 
 
- 
+@login_required
+@admin_required
 def ajouter_professeurs(request):
     if request.method == 'POST':
         username = request.POST ["username"]
@@ -117,6 +125,7 @@ def ajouter_professeurs(request):
 
 
 @login_required
+@admin_required
 def supprimer_etudiant(request,etudiant_id):
     etudiant = Etudiant.objects.get(id=etudiant_id)
     etudiant.delete()
@@ -125,6 +134,7 @@ def supprimer_etudiant(request,etudiant_id):
 
 
 @login_required
+@admin_required
 def modifier_etudiant(request, etudiant_id):
     etudiant = Etudiant.objects.get(id=etudiant_id)
 
@@ -146,6 +156,7 @@ def modifier_etudiant(request, etudiant_id):
 
 
 @login_required
+@admin_required
 def supprimer_professeur(request,professeur_id):
     professeur = Professeur.objects.get(id=professeur_id)
     professeur.delete()
@@ -153,6 +164,7 @@ def supprimer_professeur(request,professeur_id):
 
 
 @login_required
+@admin_required
 def modifier_professeur(request,professeur_id):
     professeur = Professeur.objects.get(id=professeur_id)
     if request.method == 'POST':
@@ -166,4 +178,8 @@ def modifier_professeur(request,professeur_id):
         return redirect('liste_professeur')
     return render(request,'compte/modifier_professeur.html',{'professeur':professeur})
     
-   
+
+
+
+
+
