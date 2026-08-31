@@ -1,15 +1,165 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'compte/style.css'%}">
-    <title>dash-etudiant</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{% static 'compte/style.css' %}">
+
+    <title>GESTISCOL - Espace étudiant</title>
 </head>
-<body>
-    <h1>TABLEAU ETUDIANT</h1>
-    <p>Bienvenue {{ request.user.first_name}}</p>
-    
+
+
+<body class="prof-dashboard">
+
+
+    <header class="prof-header">
+
+        <div class="prof-brand">
+
+            <img
+                src="{% static 'compte/LOGO.png' %}"
+                alt="Logo GESTISCOL"
+            >
+
+            <div>
+
+                <h1>GESTISCOL</h1>
+
+                <span>
+                    Espace étudiant
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <a href="{% url 'deconnexion' %}"
+           class="prof-logout">
+
+            Se déconnecter
+
+        </a>
+
+    </header>
+
+
+  
+
+    <main class="prof-main">
+
+
+
+        <section class="prof-welcome">
+
+            <p class="prof-label">
+                ESPACE ÉTUDIANT
+            </p>
+
+            <h2>
+                Bienvenue {{ request.user.first_name }} !
+            </h2>
+
+            <p>
+                Bienvenue dans votre espace étudiant.
+            </p>
+
+        </section>
+
+
+      
+
+        <section class="prof-actions">
+
+
+
+            <div class="prof-dashboard-card">
+
+                <div class="prof-card-icon">
+                    👨‍🎓
+                </div>
+
+                <div>
+
+                    <h3>
+                        Mon profil
+                    </h3>
+
+                    <p>
+                        Consultez vos informations personnelles.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+           
+
+            <div class="prof-dashboard-card">
+
+                <div class="prof-card-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <h3>
+                        Ma classe
+                    </h3>
+
+                    <p>
+                        Consultez les informations concernant votre classe.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+           
+
+         <a href="{% url 'mes_notes' %}" class="prof-dashboard-card">
+
+    <div class="prof-card-icon">
+        📝
+    </div>
+
+    <div>
+
+        <h3>
+            Mes notes
+        </h3>
+
+        <p>
+            Consultez vos notes et vos résultats scolaires.
+        </p>
+
+    </div>
+
+</a>
+
+        </section>
+
+    </main>
+
+
+   
+
+    <footer class="prof-footer">
+
+        GESTISCOL — Système de gestion scolaire
+
+    </footer>
+
+
 </body>
+
 </html>

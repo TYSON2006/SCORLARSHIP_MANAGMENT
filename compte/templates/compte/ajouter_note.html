@@ -1,50 +1,127 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{% static 'compte/style.css' %}">
-<title>Ajouter une note</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{% static 'compte/style.css' %}">
+
+    <title>GESTISCOL - Ajouter une note</title>
 </head>
-<body>
-<div class="container">
-<div class="form">
-<form method="POST" action="{% url 'ajouter_note' %}">
-{% csrf_token %}
-<h1>AJOUTER UNE NOTE</h1>
 
-{% if messages %}
-{% for message in messages %}
-<div class="element">{{ message.tags }}, {{ message }}</div>
-{% endfor %}
-{% endif %}
+<body class="note-page">
 
-<label for="etudiant_id">Etudiant_id</label>
-<input 
-type="text"
-name="etudiant_id"
-id="etudiant_id"
-required
->
-<label for="matiere_id">matiere_id</label>
-<input 
-type="text"
-name="matiere_id"
-id="matiere_id"
-required
->
-<label for="note">Note</label>
-<input 
-type="text"
-name="valeur"
-id="valeur"
-required
->
+    <div class="note-container">
 
-<button type="submit">Enregistrer</button>
-</form>
-</div>
-</div>
+        <div class="note-card">
+
+            <h1>AJOUTER UNE NOTE</h1>
+
+            <p class="note-subtitle">
+                Enregistrez une note pour un étudiant.
+            </p>
+
+            <form method="POST" action="{% url 'ajouter_note' %}">
+
+                {% csrf_token %}
+
+
+                <!-- ÉTUDIANT -->
+
+                <div class="note-form-group">
+
+                    <label for="etudiant_id">
+                        Étudiant
+                    </label>
+
+                    <select name="etudiant_id"
+                            id="etudiant_id"
+                            required>
+
+                        <option value="">
+                            -- Choisir un étudiant --
+                        </option>
+
+                        {% for etudiant in etudiants %}
+
+                            <option value="{{ etudiant.id }}">
+                                {{ etudiant.user.username }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- MATIÈRE -->
+
+                <div class="note-form-group">
+
+                    <label for="matiere_id">
+                        Matière
+                    </label>
+
+                    <select name="matiere_id"
+                            id="matiere_id"
+                            required>
+
+                        <option value="">
+                            -- Choisir une matière --
+                        </option>
+
+                        {% for matiere in matieres %}
+
+                            <option value="{{ matiere.id }}">
+                                {{ matiere.nom }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- NOTE -->
+
+                <div class="note-form-group">
+
+                    <label for="valeur">
+                        Note
+                    </label>
+
+                    <input
+                        type="number"
+                        name="valeur"
+                        id="valeur"
+                        min="0"
+                        max="20"
+                        step="0.01"
+                        placeholder="Ex : 15.50"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit" class="note-button">
+                    ENREGISTRER LA NOTE
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
 </body>
+
 </html>

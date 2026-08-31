@@ -1,0 +1,123 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{% static 'compte/style.css' %}">
+
+    <title>GESTISCOL - Mes classes</title>
+</head>
+
+<body class="prof-dashboard">
+
+    <header class="prof-header">
+
+        <div class="prof-brand">
+
+            <img
+                src="{% static 'compte/LOGO.png' %}"
+                alt="Logo GESTISCOL"
+            >
+
+            <div>
+                <h1>GESTISCOL</h1>
+                <span>Espace professeur</span>
+            </div>
+
+        </div>
+
+        <a href="{% url 'deconnexion' %}" class="prof-logout">
+            Se déconnecter
+        </a>
+
+    </header>
+
+
+    <main class="prof-main">
+
+        <section class="prof-welcome">
+
+            <p class="prof-label">
+                MES CLASSES
+            </p>
+
+            <h2>
+                Mes classes
+            </h2>
+
+            <p>
+                Voici les classes qui vous sont attribuées.
+            </p>
+
+        </section>
+
+
+        <section class="prof-actions">
+
+            {% if classes %}
+
+                {% for classe in classes %}
+
+                    <div class="prof-dashboard-card">
+
+                        <div class="prof-card-icon">
+                            📚
+                        </div>
+
+                        <div>
+                            <h3>
+                                {{ classe.nom }}
+                            </h3>
+
+                            <p>
+                                Classe attribuée
+                            </p>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="prof-dashboard-card">
+
+                    <div class="prof-card-icon">
+                        ℹ️
+                    </div>
+
+                    <div>
+                        <h3>
+                            Aucune classe
+                        </h3>
+
+                        <p>
+                            Aucune classe ne vous est actuellement attribuée.
+                        </p>
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+
+    <footer class="prof-footer">
+
+        GESTISCOL — Système de gestion scolaire
+
+    </footer>
+
+</body>
+
+</html>

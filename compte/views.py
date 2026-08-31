@@ -9,6 +9,7 @@ from.models import Matiere
 from.models import Users
 from django.http import HttpResponseNotFound
 from.models import Note
+from django.db.models import Avg
 
 # Create your views here.
 
@@ -226,9 +227,11 @@ def ajouter_note(request):
         etudiant_obj = Etudiant.objects.get(id=etudiant_id)
         matiere_obj = Matiere.objects.get(id=matiere_id)
         Note.objects.create(etudiant=etudiant_obj,matiere=matiere_obj,valeur=valeur)
-        return redirect('acceuil')
+        return redirect('dashboard_prof')
+    etudiants = Etudiant.objects.all()
+    matieres = Matiere.objects.all()
     
-    return render (request,'compte/ajouter_note.html')
+    return render(request, 'compte/ajouter_note.html', {'etudiants': etudiants, 'matieres': matieres})
 
    
 
@@ -240,9 +243,17 @@ def mes_classes(request):
     professeur = Professeur.objects.get(user=request.user)
     classes = professeur.classes.all()
 
-    return render(
-        request,
-        "compte/mes_classes.html",
-        {"classes": classes}
-    )
+    return render(request,"compte/mes_classes.html",{"classes":classes})
 
+
+
+
+
+      
+     
+@login_required
+def mes_notes(request):
+    etudiant = Etudiant.objects.get(user=request.user)
+    notes = Note.objects.filter(etudiant=etudiant).select_related("matiere")
+    moyenne = notes.aggregate(moyenne=Avg("valeur"))["moyenne"]
+    return render(request, "compte/mes_notes.html", {"notes": notes, "moyenne": moyenne})

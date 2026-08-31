@@ -1,0 +1,127 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{% static 'compte/style.css' %}">
+
+    <title>GESTISCOL - Mes notes</title>
+
+</head>
+
+
+<body class="prof-dashboard">
+
+
+    <header class="prof-header">
+
+        <div class="prof-brand">
+
+            <img
+                src="{% static 'compte/LOGO.png' %}"
+                alt="Logo GESTISCOL"
+            >
+
+            <div>
+
+                <h1>GESTISCOL</h1>
+
+                <span>
+                    Espace étudiant
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <a href="{% url 'deconnexion' %}"
+           class="prof-logout">
+
+            Se déconnecter
+
+        </a>
+
+    </header>
+
+
+
+    <main class="prof-main">
+
+
+        <section class="prof-welcome">
+
+            <p class="prof-label">
+                MES NOTES
+            </p>
+
+            <h2>
+                Mes notes
+            </h2>
+
+            <p>
+                Consultez vos résultats scolaires.
+            </p>
+
+        </section>
+
+
+
+        <section class="prof-actions">
+
+
+          {% if notes %}
+
+    {% if moyenne %}
+    <div class="prof-dashboard-card">
+        <div class="prof-card-icon">📊</div>
+        <div>
+            <h3>Moyenne générale</h3>
+            <p>Votre moyenne : <strong>{{ moyenne|floatformat:2 }}/20</strong></p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% for note in notes %}
+    <div class="prof-dashboard-card">
+        <div class="prof-card-icon">📝</div>
+        <div>
+            <h3>{{ note.matiere.nom }}</h3>
+            <p>Note : <strong>{{ note.valeur }}/20</strong></p>
+        </div>
+    </div>
+    {% endfor %}
+
+{% else %}
+    <div class="prof-dashboard-card">
+        <div class="prof-card-icon">ℹ️</div>
+        <div>
+            <h3>Aucune note</h3>
+            <p>Vous n'avez pas encore de note enregistrée.</p>
+        </div>
+    </div>
+{% endif %}
+        </section>
+
+    </main>
+
+
+
+    <footer class="prof-footer">
+
+        GESTISCOL — Système de gestion scolaire
+
+    </footer>
+
+
+</body>
+
+</html>

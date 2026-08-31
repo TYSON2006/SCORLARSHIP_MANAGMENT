@@ -19,6 +19,8 @@ urlpatterns = [
         path("ajouter_note/",views.ajouter_note,name="ajouter_note"),
         path("dashboard_prof/",views.dashboard_prof,name="dashboard_prof"),
         path("dashboard_etudiant/",views.dashboard_etudiant,name="dashboard_etudiant"),
-        path("mes_classes/",views.mes_classes,name="mes_classes")
+        path("mes_classes/",views.mes_classes,name="mes_classes"),
+        path("mes_notes/", views.mes_notes, name="mes_notes"),
+       
        
 ]
