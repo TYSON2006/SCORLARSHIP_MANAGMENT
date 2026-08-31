@@ -98,4 +98,14 @@ class Absence(models.Model):
 
    def __str__(self):
       return  f"{self.etudiant}-{self.matiere}-{self.date}"
-   
+
+
+
+
+class Note(models.Model):
+   etudiant = models.ForeignKey(Etudiant,on_delete=models.CASCADE)
+   matiere = models.ForeignKey(Matiere,on_delete=models.CASCADE)
+   valeur = models.DecimalField(max_digits=4,decimal_places=2)
+
+   def __str__(self):
+      return f"{self.etudiant} - {self.matiere} : {self.valeur}"

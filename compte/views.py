@@ -6,19 +6,41 @@ from .models import Etudiant
 from .models import Professeur
 from.models import Classe
 from.models import Matiere
+from.models import Users
 from django.http import HttpResponseNotFound
+from.models import Note
 
 # Create your views here.
 
 
 
 def admin_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if request.user.role != 'admin':
+            return HttpResponseNotFound()
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
+
+
+def prof_required(view_func):
     def wrapper(request,*args,**kwargs):
-        if request.user.role !='amdin':
+        if request.user.role !='prof':
             return HttpResponseNotFound()
         return view_func(request,*args,**kwargs)
     return wrapper
 
+
+
+@login_required
+@prof_required
+def dashboard_prof(request):
+    return render(request, "compte/dashboard_prof.html")
+
+
+@login_required
+def dashboard_etudiant(request):
+    return render(request, "compte/dashboard_etudiant.html")
 
 def connect_view(request):
 
@@ -28,12 +50,23 @@ def connect_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("acceuil")
+
+            if user.role == 'admin':
+                return redirect("acceuil")
+
+            elif user.role == 'prof':
+                return redirect("dashboard_prof")
+
+            elif user.role == 'etudiant':
+                return redirect("dashboard_etudiant")
+
         else:
-            messages.error(request, "Nom d'utilisateur ou password incorrect.")
+            messages.error(
+                request,
+                "Nom d'utilisateur ou password incorrect."
+            )
 
     return render(request, "compte/connexion.html")
-
 
 @login_required
 def acceuil(request):
@@ -50,16 +83,16 @@ def deconnexion_view(request):
 
 
 
-def acceuil_view(request):
+# def acceuil_view(request):
 
-    if request.user.role == 'admin':
-        return render(request,'compte/acceuil.html')
+#     if request.user.role == 'admin':
+#         return render(request,'compte/acceuil.html')
     
-    elif request.user.role == 'etudiant':
-        return render(request,'compte/dashboard_etudiant.html')
+#     elif request.user.role == 'etudiant':
+#         return render(request,'compte/dashboard_etudiant.html')
 
-    elif request.user.role == 'prof':
-        return render(request,'compte/dashboard_prof.html')
+#     elif request.user.role == 'prof':
+#         return render(request,'compte/dashboard_prof.html')
    
 
 
@@ -117,9 +150,10 @@ def ajouter_professeurs(request):
             messages.error(request,"ce nom est déjà utilisé")
             return render(request,"compte/ajouter_professeurs.html")
         nouvelle_utilisateur = Users.objects.create_user(username=username,password=password,role='prof')
+        matiere_obj= Matiere.objects.get(id=matiere_id)
         nouveau_prof = Professeur.objects.create(user=nouvelle_utilisateur,matiere=matiere_obj)
-        nouveau_prof.classes.set("classes_ids")
-        return render("liste_professeurs")
+        nouveau_prof.classes.set(classes_ids)
+        return redirect("liste_professeurs")
 
     return render(request,"compte/ajouter_professeurs.html")
 
@@ -171,15 +205,44 @@ def modifier_professeur(request,professeur_id):
         matiere_obj = Matiere.objects.get(id=request.POST["matiere_id"])
         professeur.matiere = matiere_obj
         professeur.save()
-        classes_ids=request.POST.getlsit("classes_ids")
+        classes_ids=request.POST.getlist("classes_ids")
         professeur.classes.set(classes_ids)
         professeur.user.username = request.POST["username"]
         professeur.user.save()
-        return redirect('liste_professeur')
+        return redirect('liste_professeurs')
     return render(request,'compte/modifier_professeur.html',{'professeur':professeur})
     
 
 
 
 
+@login_required
+@prof_required
+def ajouter_note(request):
+    if request.method =='POST':
+        etudiant_id = request.POST["etudiant_id"]
+        matiere_id = request.POST["matiere_id"]
+        valeur = request.POST["valeur"]
+        etudiant_obj = Etudiant.objects.get(id=etudiant_id)
+        matiere_obj = Matiere.objects.get(id=matiere_id)
+        Note.objects.create(etudiant=etudiant_obj,matiere=matiere_obj,valeur=valeur)
+        return redirect('acceuil')
+    
+    return render (request,'compte/ajouter_note.html')
+
+   
+
+    
+
+@login_required
+@prof_required
+def mes_classes(request):
+    professeur = Professeur.objects.get(user=request.user)
+    classes = professeur.classes.all()
+
+    return render(
+        request,
+        "compte/mes_classes.html",
+        {"classes": classes}
+    )
 
