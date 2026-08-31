@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-suztc8l^@3$_p0$!0o#)^m-r%chzph9j_@q5-!tlagzr2eces_"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['palmer.pythonanywhere.com', '127.0.0.1', 'localhost']
 
@@ -76,8 +78,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django_libsql",
+        "NAME": os.getenv("TURSO_DATABASE_URL"),
+        "AUTH_TOKEN": os.getenv("TURSO_AUTH_TOKEN"),
     }
 }
 
