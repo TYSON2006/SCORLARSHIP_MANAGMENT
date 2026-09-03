@@ -29,6 +29,7 @@ SECRET_KEY = "django-insecure-suztc8l^@3$_p0$!0o#)^m-r%chzph9j_@q5-!tlagzr2eces_
 DEBUG = True
 
 ALLOWED_HOSTS = ['palmer.pythonanywhere.com', '127.0.0.1', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['https://palmer.pythonanywhere.com']
 
 
 # Application definition
@@ -119,8 +120,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = "static/"
-SSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]   
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
 AUTH_USER_MODEL = "compte.Users"
 
 LOGIN_URL = "connexion"
