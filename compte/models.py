@@ -10,21 +10,22 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Users(AbstractUser):
-   Roles =  [
-      ('admin','administrateur'),
-      ('etudiant','étudiant'),
-      ('prof','professeur')
-   ]
-   
-   role = models.CharField(max_length=25,choices= Roles , default='prof')
+    Roles = [
+        ('admin', 'administrateur'),
+        ('etudiant', 'étudiant'),
+        ('prof', 'professeur'),
+    ]
 
-   REQUIRED_FIELDS= ['role','first_name','last_name',]
+    role = models.CharField(
+        max_length=25,
+        choices=Roles,
+        default='prof'
+    )
 
+    REQUIRED_FIELDS = ['role', 'first_name', 'last_name']
 
-   def __str__(self):
-      return f"{self.first_name},{self.last_name},-{self.get_role_display()} (self.username)"
-
-
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.get_role_display()} ({self.username})"
 
 
 class Classe(models.Model):
