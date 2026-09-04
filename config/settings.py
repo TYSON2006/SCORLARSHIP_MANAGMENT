@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv(
 
 # Pour les tests, on peut laisser True.
 # En production PythonAnywhere, nous le passerons à False.
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "palmer.pythonanywhere.com",
